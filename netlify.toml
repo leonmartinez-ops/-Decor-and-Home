@@ -10,5 +10,12 @@
 
 [[redirects]]
   from = "/*"
+  to = "/catalogo/index.html"
+  status = 200
+  force = true
+  conditions = {Host = ["catalogo.decorandhome.com.mx"]}
+
+[[redirects]]
+  from = "/*"
   to = "/index.html"
   status = 200
