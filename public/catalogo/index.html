@@ -1,9 +1,284 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#171512"><title>Catálogo | Decor & Home</title>
-<style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#171512;font-family:Arial,Helvetica,sans-serif}.top{position:fixed;z-index:20;top:0;left:0;right:0;padding:calc(16px + env(safe-area-inset-top)) 18px 14px;display:flex;justify-content:space-between;color:#fff;background:linear-gradient(#0009,transparent);pointer-events:none}.brand{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.count{font-size:11px;letter-spacing:.12em}.track{width:100%;height:100svh;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;touch-action:pan-x}.card{min-width:100vw;width:100vw;height:100svh;scroll-snap-align:start;position:relative;overflow:hidden}.visual{position:absolute;inset:0;background:radial-gradient(circle at 70% 25%,#756a5d 0,#403a33 38%,#171512 78%)}.card:nth-child(3n+2) .visual{background:radial-gradient(circle at 25% 30%,#58665b 0,#303b34 40%,#171512 80%)}.card:nth-child(3n) .visual{background:radial-gradient(circle at 65% 35%,#77606b 0,#3d3036 42%,#171512 80%)}.num{position:absolute;inset:0;display:grid;place-items:center;color:#ffffff12;font:700 52vw/1 Arial}.shade{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.76))}.info{position:absolute;left:22px;right:22px;bottom:calc(98px + env(safe-area-inset-bottom));color:#fff}.info small{font-size:10px;letter-spacing:.18em;text-transform:uppercase}.info h2{font-size:29px;line-height:1.04;margin:8px 0 0;font-weight:500}.hint{position:fixed;z-index:25;right:18px;top:50%;color:#fff;font-size:30px;pointer-events:none}.dock{position:fixed;z-index:30;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px}.dock a{flex:1;text-decoration:none;text-align:center;padding:16px 14px;border-radius:999px;font-size:13px;font-weight:700}.back{background:#fff;color:#201d1a}.wa{background:#25D366;color:#07180c}</style></head>
-<body><header class="top"><span class="brand">Decor & Home</span><span class="count" id="count">01 / 17</span></header><main class="track" id="catalog"></main><div class="hint">›</div><nav class="dock"><a class="back" href="https://decorandhome.com.mx/">Inicio</a><a class="wa" href="https://wa.me/528181381986?text=Hola%20Decor%20%26%20Home%2C%20vi%20su%20cat%C3%A1logo%20y%20quiero%20informaci%C3%B3n." target="_blank" rel="noopener">WhatsApp</a></nav>
-<script>
-const total=17,root=document.querySelector('#catalog'),count=document.querySelector('#count');
-root.innerHTML=Array.from({length:total},(_,i)=>`<section class="card"><div class="visual"></div><div class="num">${String(i+1).padStart(2,'0')}</div><div class="shade"></div><div class="info"><small>Decor & Home · Colección</small><h2>Tapiz ${String(i+1).padStart(2,'0')}</h2></div></section>`).join('');
-let raf;const sync=()=>{cancelAnimationFrame(raf);raf=requestAnimationFrame(()=>{const i=Math.round(root.scrollLeft/root.clientWidth);count.textContent=String(i+1).padStart(2,'0')+' / '+total})};root.addEventListener('scroll',sync,{passive:true});
-</script></body></html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#11110f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Catálogo | Decor &amp; Home</title>
+    <link
+      rel="preload"
+      as="image"
+      href="/catalogo/assets/photos/decor-01.webp"
+      type="image/webp"
+      fetchpriority="high"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #11110f;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #11110f;
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+        -webkit-font-smoothing: antialiased;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .topbar {
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        right: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: calc(12px + env(safe-area-inset-top)) 12px 10px;
+        pointer-events: none;
+      }
+
+      .home,
+      .counter {
+        min-height: 38px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        background: rgba(15, 15, 13, 0.58);
+        color: #fff;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+      }
+
+      .home {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 0 14px;
+        color: #fff;
+        font-size: 12px;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        text-decoration: none;
+        pointer-events: auto;
+      }
+
+      .home svg {
+        width: 14px;
+        height: 14px;
+        flex: 0 0 auto;
+      }
+
+      .counter {
+        display: grid;
+        min-width: 72px;
+        place-items: center;
+        padding: 0 12px;
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+        font-weight: 650;
+        letter-spacing: 0.12em;
+      }
+
+      .catalog {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        overflow-x: auto;
+        overflow-y: hidden;
+        overscroll-behavior-x: contain;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        touch-action: pan-x pinch-zoom;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .catalog::-webkit-scrollbar {
+        display: none;
+      }
+
+      .slide {
+        position: relative;
+        width: 100vw;
+        min-width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        flex: 0 0 100vw;
+        overflow: hidden;
+        background: #11110f;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      .dock {
+        position: fixed;
+        z-index: 30;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(15, 15, 13, 0.68);
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+      }
+
+      .whatsapp {
+        display: flex;
+        width: 100%;
+        min-height: 56px;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 999px;
+        background: #25d366;
+        color: #071b0d;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        text-decoration: none;
+        box-shadow: 0 9px 30px rgba(0, 0, 0, 0.28);
+      }
+
+      .whatsapp svg {
+        width: 21px;
+        height: 21px;
+        flex: 0 0 auto;
+        fill: currentColor;
+      }
+
+      @media (min-width: 760px) {
+        .topbar {
+          padding-right: 20px;
+          padding-left: 20px;
+        }
+
+        .dock {
+          right: 50%;
+          left: 50%;
+          width: min(460px, calc(100vw - 40px));
+          padding-right: 0;
+          padding-left: 0;
+          background: transparent;
+          transform: translateX(-50%);
+          -webkit-backdrop-filter: none;
+          backdrop-filter: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .catalog {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar" aria-label="Controles del catálogo">
+      <a class="home" href="https://decorandhome.com.mx/" aria-label="Regresar al inicio de Decor &amp; Home">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15.5 4.5 8 12l7.5 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Inicio
+      </a>
+      <span class="counter" id="counter" aria-live="polite">01 / 48</span>
+    </header>
+
+    <main class="catalog" id="catalog" aria-label="Catálogo fotográfico Decor &amp; Home"></main>
+
+    <nav class="dock" aria-label="Contacto">
+      <a
+        class="whatsapp"
+        href="https://wa.me/528181381986?text=Hola%20Decor%20%26%20Home%2C%20vi%20su%20cat%C3%A1logo%20y%20quiero%20informaci%C3%B3n."
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Solicitar información por WhatsApp"
+      >
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16.04 3C8.86 3 3.02 8.8 3.02 15.93c0 2.28.6 4.51 1.74 6.47L3 28.82l6.6-1.72a13.1 13.1 0 0 0 6.43 1.64h.01c7.18 0 13.02-5.8 13.02-12.93C29.06 8.8 23.22 3 16.04 3Zm0 23.56h-.01a10.9 10.9 0 0 1-5.56-1.51l-.4-.24-3.92 1.02 1.05-3.8-.26-.4a10.7 10.7 0 0 1-1.7-5.8c0-5.94 4.84-10.76 10.8-10.76 5.95 0 10.79 4.82 10.79 10.76 0 5.93-4.84 10.75-10.79 10.75Zm5.92-8.06c-.32-.16-1.92-.94-2.22-1.05-.3-.1-.51-.16-.73.16-.21.32-.83 1.05-1.02 1.27-.19.21-.38.24-.7.08-.33-.16-1.37-.5-2.61-1.6a9.7 9.7 0 0 1-1.81-2.24c-.19-.32-.02-.5.14-.66.15-.14.32-.37.49-.56.16-.19.21-.32.32-.53.11-.22.05-.4-.03-.56-.08-.16-.73-1.75-1-2.4-.26-.63-.53-.55-.73-.56h-.62c-.22 0-.57.08-.87.4-.3.33-1.13 1.1-1.13 2.67s1.16 3.1 1.32 3.31c.16.22 2.28 3.46 5.52 4.85.77.33 1.37.53 1.84.68.77.24 1.47.21 2.03.13.62-.09 1.92-.78 2.19-1.54.27-.75.27-1.4.19-1.54-.08-.13-.3-.21-.62-.37Z" />
+        </svg>
+        Solicitar información
+      </a>
+    </nav>
+
+    <script>
+      const total = 48;
+      const catalog = document.querySelector("#catalog");
+      const counter = document.querySelector("#counter");
+
+      const twoDigits = (value) => String(value).padStart(2, "0");
+
+      catalog.innerHTML = Array.from({ length: total }, (_, index) => {
+        const number = index + 1;
+        const priority = index === 0 ? 'fetchpriority="high"' : "";
+        const loading = index < 2 ? "eager" : "lazy";
+
+        return `
+          <section class="slide" data-index="${index}" aria-label="Fotografía ${number} de ${total}">
+            <img
+              src="/catalogo/assets/photos/decor-${twoDigits(number)}.webp"
+              alt="Fotografía de catálogo Decor &amp; Home"
+              width="1152"
+              height="1536"
+              loading="${loading}"
+              decoding="async"
+              ${priority}
+              draggable="false"
+            />
+          </section>`;
+      }).join("");
+
+      let currentIndex = 0;
+      let frame;
+
+      const setCounter = (index) => {
+        const boundedIndex = Math.max(0, Math.min(total - 1, index));
+        if (boundedIndex === currentIndex && counter.dataset.ready) return;
+        currentIndex = boundedIndex;
+        counter.dataset.ready = "true";
+        counter.textContent = `${twoDigits(currentIndex + 1)} / ${twoDigits(total)}`;
+      };
+
+      const syncCounter = () => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+          setCounter(Math.round(catalog.scrollLeft / catalog.clientWidth));
+        });
+      };
+
+      catalog.addEventListener("scroll", syncCounter, { passive: true });
+      window.addEventListener("resize", syncCounter, { passive: true });
+      setCounter(0);
+    </script>
+  </body>
+</html>
